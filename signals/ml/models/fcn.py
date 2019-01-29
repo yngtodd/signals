@@ -67,7 +67,7 @@ class OutConv(nn.Module):
         return self.conv(x)
 
 
-class UNet2D(nn.Module):
+class FullyConvolutionalNet(nn.Module):
 
     def __init__(self, n_channels, n_classes):
         super(UNet2D, self).__init__()
