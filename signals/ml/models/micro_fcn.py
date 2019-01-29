@@ -67,31 +67,18 @@ class OutConv(nn.Module):
         return self.conv(x)
 
 
-class FullyConvolutionalNet(nn.Module):
+class MicroFCN(nn.Module):
 
     def __init__(self, n_channels, n_classes):
-        super(FullyConvolutionalNet, self).__init__()
+        super(MicroFCN, self).__init__()
         self.inconv = InConv(n_channels, 16)
         self.down1 = Down(16, 32)
-        self.down2 = Down(32, 64)
-        self.down3 = Down(64, 128)
-        self.down4 = Down(128, 256)
-        self.up1 = Up(256, 128)
-        #self.up2 = Up(128, 64)
-        #self.up3 = Up(64, 32)
-        #self.up4 = Up(32, 16)
-        #self.outconv = OutConv(16, n_classes)
+        self.up1 = Up(32, 16)
+        self.outconv = OutConv(16, n_classes)
 
     def forward(self, x):
         x1 = self.inconv(x)
         x2, indices1 = self.down1(x1)
-        x3, indices2 = self.down2(x2)
-        x4, indices3 = self.down3(x3)
-        x5, indices4 = self.down4(x4)
-        x = self.up1(x5, indices4, x4.shape)
-        #x = self.up2(x, indices3, x3.shape)
-        #x = self.up3(x, indices2, x2.shape)
-        #x = self.up4(x, indices1, x1.shape)
-        #x = self.outconv(x)
-        x = torch.sigmoid(x5)
-        return x
+        x3 = self.up1(x2, indices1, x1.shape)
+        x4 = torch.sigmoid(x3)
+        return x4
