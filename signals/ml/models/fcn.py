@@ -77,10 +77,10 @@ class FullyConvolutionalNet(nn.Module):
         self.down3 = Down(64, 128)
         self.down4 = Down(128, 256)
         self.up1 = Up(256, 128)
-        #self.up2 = Up(128, 64)
-        #self.up3 = Up(64, 32)
-        #self.up4 = Up(32, 16)
-        #self.outconv = OutConv(16, n_classes)
+        self.up2 = Up(128, 64)
+        self.up3 = Up(64, 32)
+        self.up4 = Up(32, 16)
+        self.outconv = OutConv(32, n_classes)
 
     def forward(self, x):
         x1 = self.inconv(x)
@@ -88,10 +88,10 @@ class FullyConvolutionalNet(nn.Module):
         x3, indices2 = self.down2(x2)
         x4, indices3 = self.down3(x3)
         x5, indices4 = self.down4(x4)
-        x = self.up1(x5, indices4, x4.shape)
-        #x = self.up2(x, indices3, x3.shape)
-        #x = self.up3(x, indices2, x2.shape)
-        #x = self.up4(x, indices1, x1.shape)
-        #x = self.outconv(x)
-        x = torch.sigmoid(x5)
-        return x
+        x6 = self.up1(x5, indices4, x4.size())
+        x7 = self.up2(x6, indices3, x3.size())
+        x8 = self.up3(x7, indices2, x2.size())
+        x9 = self.up4(x8, indices1, x1.size())
+        x10 = self.outconv(x9)
+        x11 = torch.sigmoid(x10)
+        return x11
