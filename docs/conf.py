@@ -129,7 +129,7 @@ html_theme_options = {
     'logo_only': True
 }
 
-html_favicon = "_static/img/favicon.ico"
+html_favicon = "_static/img/signals.ico"
 
 # -- Options for HTMLHelp output ------------------------------------------
 
