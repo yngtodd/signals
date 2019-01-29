@@ -80,5 +80,6 @@ class MicroFCN(nn.Module):
         x1 = self.inconv(x)
         x2, indices1 = self.down1(x1)
         x3 = self.up1(x2, indices1, x1.shape)
-        x4 = torch.sigmoid(x3)
-        return x4
+        x4 = self.outconv(x3)
+        x5 = torch.sigmoid(x4)
+        return x5
