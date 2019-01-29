@@ -50,4 +50,4 @@ Once you have a copy of the source, you can install it with:
     python setup.py install
 
 .. _tarball: https://github.com/yngtodd/signals/tarball/master
-.. _documentation: https://signals.readthedocs.io/en/latest
+.. _documentation: https://signals1d.readthedocs.io/en/latest/ 
